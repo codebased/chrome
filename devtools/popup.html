@@ -1,0 +1,53 @@
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="http://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.0/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js"></script>
+
+    <script src="popup.js"></script>
+    <style type="text/css">
+
+        .textArea {
+
+            width: 100%;
+        }
+
+    </style>
+</head>
+<body style="width: 500px">
+
+<div class="container">
+    <div id="result"></div>
+    <ul class="nav nav-pills">
+        <li class="active"><a data-toggle="pill" href="#home">Json Formatter</a></li>
+        <li><a data-toggle="pill" href="#menu1">Something...</a></li>
+    </ul>
+
+
+    <div class="tab-content">
+        <div id="home" class="tab-pane fade in active">
+            <h3>JSON Formatter</h3>
+
+            <div class="panel panel-primary">
+                <div class="panel-heading">JSON Validator & Formatter</div>
+                <div class="panel-body">
+                    <textarea rows="10" cols="10" id="jsonData" placeholder="Enter your json here... "
+                              class="textArea"></textarea>
+                    <input type="text" id="csharpclassresult" style="left: -1000px;position: absolute">
+                </div>
+                <div class="panel-footer">
+                    <input type="button" id="formatButton" value="Format" class="btn btn-primary"/>
+                    <input type="button" id="csharpButton" value="C# Class" class="btn btn-primary"/>
+                </div>
+            </div>
+        </div>
+        <div id="menu1" class="tab-pane fade">
+            <h3>Something</h3>
+
+            <p>Something will come in the future :-) </p>
+        </div>
+    </div>
+</div>
+</body>
+</html>
