@@ -42,10 +42,12 @@
                 <div class="container">
                     <ul class="nav navbar-nav pull-right">
                         <li>
-                            <input type="button" id="formatButton" value="Format" class="btn btn-primary"/> &nbsp;
+                            <button id="formatButton"  data-toggle="tooltip"
+                                   data-title="Make your Json looks decent" class="btn btn-primary bottomtooltip">Format</button>
                         </li>
                         <li> &nbsp;
-                            <input type="button" id="csharpButton" value="C# Class" class="btn btn-primary"/>
+                            <button id="csharpButton"  data-toggle="tooltip"
+                                   data-title="Convert Json to C# models" class="btn btn-primary bottomtooltip">C# Classes</button>
                             &nbsp;
                         </li>
                     </ul>
@@ -65,7 +67,7 @@
 
             <div class="panel panel-primary" id="resultContainer">
                 <div class="panel-body">
-                    <textarea id="result" rows="10" cols="10" class="uneditable-textarea textArea"></textarea>
+                    <textarea id="result" rows="10" cols="10" class="textArea"></textarea>
                 </div>
             </div>
         </div>

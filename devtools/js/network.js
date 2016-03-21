@@ -4,7 +4,7 @@ ap.network = (function () {
         init: function () {
         },
         hasConnection: function () {
-
+            return navigator.onLine;
         }
     }
 

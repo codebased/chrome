@@ -20,24 +20,29 @@ $(function () {
 
         if ($.isNullOrWhiteSpace(jsonData)) return;
 
-        $.post('http://json2csharp.com/Home/GenerateClasses', {"json": jsonData}, function (data) {
-            var plain = '';
-            $.each(data.Classes, function (idx, o) {
-                plain += data.Classes[idx];
+        if (ap.network.hasConnection()) {
+            $.post('http://json2csharp.com/Home/GenerateClasses', {"json": jsonData}, function (data) {
+                var plain = '';
+                $.each(data.Classes, function (idx, o) {
+                    plain += data.Classes[idx];
+                });
+                var oClassResult = $("#csharpclassresult");
+
+                oClassResult.val(plain);
+                $("#result").html((($.escapeHtml(plain))));
+
+                ap.clipboard.copyText(oClassResult)
             });
-            var oClassResult = $("#csharpclassresult");
-
-            oClassResult.val(plain);
-            $("#result").html((($.escapeHtml(plain))));
-
-            ap.clipboard.copyText(oClassResult)
-        });
+        }
+        else {
+            ap.bootstrapalert.warn("#alert_placeholder", "It seems like you are out of Internet fuel :-(");
+        }
     });
 
     function getRawJson() {
         var jsonData = $("#jsonData").val();
         if ($.isNullOrWhiteSpace(jsonData)) {
-            jsonData = ap.clipboard.getText(jsonData);
+            jsonData = ap.clipboard.getText("#jsonData");
         }
 
         return jsonData;
@@ -56,5 +61,13 @@ $(function () {
     function warn(exception) {
         ap.bootstrapalert.warn(("#alert_placeholder"), exception);
     }
-})
-;
+
+    function init() {
+        $('button.bottomtooltip').tooltip({
+            'show': true,
+            'placement': 'bottom'
+        });
+    }
+
+    init()
+});
