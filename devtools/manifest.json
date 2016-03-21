@@ -1,17 +1,23 @@
 {
-  "name": "DevTools",
+  "name": "SimplyDev",
   "version": "1.0",
-  "description": "Anything to do with dev tools.",
+  "description": "Anything that I felt a developer will use it during software development.",
+  "icons": {
+    "16": "img/ic_launcher32.png",
+    "48": "img/ic_launcher48.png",
+    "128": "img/ic_launcher128.png"
+  },
   "permissions": [
     "clipboardRead",
     "clipboardWrite",
+    "storage",
     "http://json2csharp.com/Home/GenerateClasses"
   ],
   "browser_action": {
-    "default_title": "Devtools 1.0",
-    "default_icon": "icon.png",
+    "default_title": "SimplyDev",
+    "default_icon": "img/ic_launcher.png",
     "default_popup": "popup.html"
   },
   "manifest_version": 2,
-  "content_security_policy": "script-src 'self' https://ajax.googleapis.com https://maxcdn.bootstrapcdn.com; object-src 'self'"
+  "content_security_policy": "script-src 'self'; object-src 'self'"
 }
