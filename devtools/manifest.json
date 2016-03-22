@@ -1,5 +1,7 @@
 {
+  "manifest_version": 2,
   "name": "SimplyDev",
+  "author": "codebased@gmail.com",
   "version": "1.0",
   "description": "Anything that I felt a developer will use it during software development.",
   "icons": {
@@ -11,13 +13,26 @@
     "clipboardRead",
     "clipboardWrite",
     "storage",
+    "activeTab",
+    "tabs",
     "http://json2csharp.com/Home/GenerateClasses"
+  ],
+  "background": {
+    "scripts": [
+      "js/screenshot/background.js"
+    ]
+  },
+  "content_scripts": [
+    {
+      "matches": ["<all_urls>"],
+      "js": ["js/screenshot/content-script.js"]
+    }
   ],
   "browser_action": {
     "default_title": "SimplyDev",
     "default_icon": "img/ic_launcher.png",
     "default_popup": "popup.html"
   },
-  "manifest_version": 2,
+
   "content_security_policy": "script-src 'self'; object-src 'self'"
 }
