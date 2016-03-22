@@ -1,8 +1,9 @@
 {
   "manifest_version": 2,
   "name": "Devmate",
+  "short_name": "Devmate",
   "author": "codebased@gmail.com",
-  "version": "0.1",
+  "version": "0.2",
   "description": "Whatever, whenever there is a need of automate stuff, I am going to write into this extension for better productivity",
   "icons": {
     "16": "img/ic_launcher32.png",
