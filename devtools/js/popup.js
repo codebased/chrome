@@ -29,7 +29,7 @@ $(function () {
                 var oClassResult = $("#csharpclassresult");
 
                 oClassResult.val(plain);
-                $("#result").val($.escapeHtml(plain));
+                $("#result").text(plain);
 
                 ap.clipboard.copyText(oClassResult)
             });
