@@ -39,6 +39,16 @@ $(function () {
         }
     });
 
+
+    $("#completeShotButton").click(function () {
+        getTabId(startCapture);
+    });
+
+    function startCapture(tabId) {
+        chrome.extension.sendMessage({msg: "startCapture", tabId: tabId});
+        window.close();
+    }
+
     function getRawJson() {
         var jsonData = $("#jsonData").val();
         if ($.isNullOrWhiteSpace(jsonData)) {
@@ -69,5 +79,12 @@ $(function () {
         });
     }
 
+    function getTabId(fun) {
+        chrome.tabs.query({currentWindow: true, active: true}, function (tabArray) {
+            fun(tabArray[0].id);
+        });
+    }
+
     init()
+
 });

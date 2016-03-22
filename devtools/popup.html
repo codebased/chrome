@@ -32,7 +32,7 @@
 <div class="container">
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="pill" href="#home">JSON</a></li>
-        <li><a data-toggle="pill" href="#menu1">About</a></li>
+        <li><a data-toggle="pill" href="#menu1">Screen</a></li>
     </ul>
     <div class="tab-content">
 
@@ -42,12 +42,16 @@
                 <div class="container">
                     <ul class="nav navbar-nav pull-right">
                         <li>
-                            <button id="formatButton"  data-toggle="tooltip"
-                                   data-title="Make your Json looks decent" class="btn btn-primary bottomtooltip">Format</button>
+                            <button id="formatButton" data-toggle="tooltip"
+                                    data-title="Make your Json looks decent" class="btn btn-primary bottomtooltip">
+                                Format
+                            </button>
                         </li>
                         <li> &nbsp;
-                            <button id="csharpButton"  data-toggle="tooltip"
-                                   data-title="Convert Json to C# models" class="btn btn-primary bottomtooltip">C# Classes</button>
+                            <button id="csharpButton" data-toggle="tooltip"
+                                    data-title="Convert Json to C# models" class="btn btn-primary bottomtooltip">C#
+                                Classes
+                            </button>
                             &nbsp;
                         </li>
                     </ul>
@@ -64,17 +68,29 @@
             </div>
             <h6>Console:</h6>
 
-
             <div class="panel panel-primary" id="resultContainer">
                 <div class="panel-body">
                     <textarea id="result" rows="10" cols="10" class="textArea"></textarea>
                 </div>
             </div>
         </div>
-        <div id="menu1" class="tab-pane fade">
-            <h3>Something</h3>
 
-            <p>Something will come in the future :-) </p>
+
+        <div id="menu1" class="tab-pane fade">
+            <nav class="navbar navbar-default">
+                <div class="container">
+                    <ul class="nav navbar-nav pull-right ">
+                        <li>
+                            <button type="button" id="completeShotButton" data-toggle="tooltip"
+                                    data-title="Take the whole screen shot, top to bottom."
+                                    class="btn btn-primary btn-lg bottomtooltip ">Complete Shot
+                            </button>
+                        </li>
+                    </ul>
+                </div>
+            </nav>
+            <br/>
+            <br/>
         </div>
     </div>
 </div>
