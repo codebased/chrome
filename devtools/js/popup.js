@@ -29,7 +29,7 @@ $(function () {
                 var oClassResult = $("#csharpclassresult");
 
                 oClassResult.val(plain);
-                $("#result").html((($.escapeHtml(plain))));
+                $("#result").val($.escapeHtml(plain));
 
                 ap.clipboard.copyText(oClassResult)
             });
@@ -38,7 +38,6 @@ $(function () {
             ap.bootstrapalert.warn("#alert_placeholder", "It seems like you are out of Internet fuel :-(");
         }
     });
-
 
     $("#completeShotButton").click(function () {
         getTabId(startCapture);
