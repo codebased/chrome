@@ -11,6 +11,7 @@
     <script src="js/json.js"></script>
     <script src="js/screenshot.js"></script>
     <script src="js/jqueryextensions.js"></script>
+    <script src="js/file.js"></script>
     <script src="js/popup.js"></script>
     <script src="js/bootstrapalert.js"></script>
 
@@ -54,6 +55,8 @@
                             </button>
                             &nbsp;
                         </li>
+                        <li> &nbsp;
+                        </li>
                     </ul>
                 </div>
             </nav>
@@ -64,9 +67,13 @@
                               class="textArea"></textarea>
                     <input type="text" id="csharpclassresult" style="left: -1000px;position: absolute">
                 </div>
+                <div class="panel-footer" id="jsonPanelFooter">
+                    <div class="pull-right" id="downloadJsonContainer"></div>
+
+                </div>
 
             </div>
-            <h6>Console:</h6>
+            <h6>Output:</h6>
 
             <div class="panel panel-primary" id="resultContainer">
                 <div class="panel-body">

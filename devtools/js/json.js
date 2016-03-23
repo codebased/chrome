@@ -18,6 +18,20 @@ ap.json = (function () {
             var jsonPretty = JSON.stringify(jsonObj, null, '\t');
 
             return jsonPretty;
+        },
+        downloadJson: function (json, appendToView) {
+
+            if (!!appendToView && !!json) {
+                json = typeof json == "object" ? JSON.stringify(json) : json;
+                var fileName = ap.file.newFileName("data", "json");
+                this.download(json, appendToView, "text/json;charset=utf-8", fileName);
+            }
+        },
+        download: function (data, appendToView, contentType, fileName) {
+            if (!!appendToView && !!data) {
+                var dataURI = contentType + "," + encodeURIComponent(data);
+                $('<a href="data:' + dataURI + '" download="' + fileName + '">Download</a>').appendTo(appendToView);
+            }
         }
     };
 
