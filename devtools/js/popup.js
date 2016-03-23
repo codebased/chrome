@@ -6,6 +6,8 @@ $(function () {
         if ($.isNullOrWhiteSpace(formattedJson)) return;
         rawJsonView.val(formattedJson);
         ap.clipboard.copyText(rawJsonView)
+        $("#downloadJsonContainer").empty();
+        ap.json.downloadJson(formattedJson, $("#downloadJsonContainer"));
     });
 
     $('captureScreen').click(function () {
