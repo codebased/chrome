@@ -3,7 +3,7 @@
   "name": "Devmate",
   "short_name": "Devmate",
   "author": "codebased@gmail.com",
-  "version": "0.4",
+  "version": "0.5",
   "description": "Whatever, whenever there is a need of automate stuff, I am going to write into this extension for better productivity",
   "icons": {
     "16": "img/ic_launcher32.png",
@@ -15,11 +15,13 @@
     "clipboardWrite",
     "activeTab",
     "tabs",
+    "contextMenus",
     "http://json2csharp.com/Home/GenerateClasses"
   ],
   "background": {
     "scripts": [
-      "js/screenshot/background.js"
+      "js/screenshot/background.js",
+      "js/backgroundcontextmenu.js"
     ]
   },
   "content_scripts": [
