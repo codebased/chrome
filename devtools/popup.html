@@ -21,7 +21,7 @@
         }
 
         .bodyStyle {
-            width: 500px;
+            width: 800px;
             overflow: scroll;
             background: #ececec;
         }
@@ -31,6 +31,16 @@
 <br/>
 
 <div class="container">
+
+    <div class="row">
+        <div class="form-group col-md-12">
+            <div class="icon-addon addon-lg">
+                <input type="text" placeholder="Search on Stackoverflow" class="form-control" id="searchTextView">
+                <label for="searchTextView" rel="tooltip" title="email"></label>
+            </div>
+        </div>
+    </div>
+
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="pill" href="#home">JSON</a></li>
         <li><a data-toggle="pill" href="#menu1">Screen</a></li>
@@ -38,30 +48,21 @@
     <div class="tab-content">
 
         <div id="home" class="tab-pane fade in active">
-
-            <nav class="navbar navbar-default">
-                <div class="container">
-                    <ul class="nav navbar-nav pull-right">
-                        <li>
-                            <button id="formatButton" data-toggle="tooltip"
-                                    data-title="Make your Json looks decent" class="btn btn-primary bottomtooltip">
-                                Format
-                            </button>
-                        </li>
-                        <li> &nbsp;
-                            <button id="csharpButton" data-toggle="tooltip"
-                                    data-title="Convert Json to C# models" class="btn btn-primary bottomtooltip">C#
-                                Classes
-                            </button>
-                            &nbsp;
-                        </li>
-                        <li> &nbsp;
-                        </li>
-                    </ul>
-                </div>
-            </nav>
             <div id="alert_placeholder"></div>
-            <div class="panel panel-primary">
+
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <div class="pull-right">
+                        <a id="formatButton" data-toggle="tooltip"
+                           data-title="Make your Json looks decent" href="#"
+                           class="btn btn-primary btn-sm bottomtooltip">Format</a>
+                        <a id="csharpButton" data-toggle="tooltip"
+                           data-title="Convert Json to C# models" href="#" class="btn btn-primary btn-sm bottomtooltip">C#
+                            Classes</a>
+                    </div>
+                    <h4>&nbsp;</h4>
+                </div>
                 <div class="panel-body">
                     <textarea rows="10" cols="10" id="jsonData" placeholder="Enter your json here... "
                               class="textArea"></textarea>
@@ -69,7 +70,7 @@
                 </div>
                 <div class="panel-footer" id="jsonPanelFooter">
                     <div class="pull-right" id="downloadJsonContainer"></div>
-
+                    <h4>&nbsp;</h4>
                 </div>
 
             </div>
@@ -84,22 +85,16 @@
 
 
         <div id="menu1" class="tab-pane fade">
-            <nav class="navbar navbar-default">
-                <div class="container">
-                    <ul class="nav navbar-nav pull-right ">
-                        <li>
-                            <button type="button" id="completeShotButton" data-toggle="tooltip"
-                                    data-title="Take the whole screen shot, top to bottom."
-                                    class="btn btn-primary btn-lg bottomtooltip ">Complete Shot
-                            </button>
-                        </li>
-                    </ul>
+            <div class="panel panel-default">
+
+                <div class="panel-heading">
+                    <a id="completeShotButton" data-toggle="tooltip" style="display: block; width: 100%;"
+                       data-title="Take the whole screen shot, top to bottom."
+                       class="btn btn-primary btn-sm bottomtooltip" href="#">Full Screen</a>
+
                 </div>
-            </nav>
-            <br/>
-            <br/>
+            </div>
         </div>
     </div>
-</div>
 </body>
 </html>
