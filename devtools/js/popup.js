@@ -45,6 +45,13 @@ $(function () {
         getTabId(startCapture);
     });
 
+    $("#searchTextView").keypress(function (e) {
+        if (e.keyCode == 13) {
+            var serviceCall = 'http://stackoverflow.com/search?q=' + encodeURIComponent($("#searchTextView").val());
+            chrome.tabs.create({url: serviceCall});
+        }
+    });
+
     function startCapture(tabId) {
         chrome.extension.sendMessage({msg: "startCapture", tabId: tabId});
         window.close();
@@ -74,7 +81,7 @@ $(function () {
     }
 
     function init() {
-        $('button.bottomtooltip').tooltip({
+        $('.bottomtooltip').tooltip({
             'show': true,
             'placement': 'bottom'
         });
@@ -85,6 +92,7 @@ $(function () {
             fun(tabArray[0].id);
         });
     }
+
 
     init()
 
