@@ -25,6 +25,13 @@ $(function () {
             return text.replace(/[&<>"']/g, function (m) {
                 return map[m];
             });
+        },
+        componentToHex: function componentToHex(c) {
+            var hex = c.toString(16);
+            return hex.length == 1 ? "0" + hex : hex;
+        },
+        rgb2hex: function rgb2hex(r, g, b) {
+            return "#" + this.componentToHex(r) + this.componentToHex(g) + this.componentToHex(b);
         }
 
     });
