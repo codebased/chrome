@@ -54,6 +54,26 @@ $(function () {
         }
     });
 
+
+    chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
+        $("#bigurlView").val(tabs[0].url);
+    });
+
+    $("#bigurlView").keypress(function (e) {
+        if (e.keyCode == 13) {
+            var bigUrl = $(this).val();
+            $(this).val("Have patience when I get your tiny url.");
+            ap.url.tinyurl(bigUrl, function (result) {
+                if (!!result) {
+                    $("#bigurlView").val(result);
+                }
+                else {
+                    $("#bigurlView").val("Looks like something went wrong! :-( Is your net on?");
+                }
+            });
+        }
+    });
+
     $("#colorImage").change(function () {
         readImage(this);
     });
@@ -65,7 +85,6 @@ $(function () {
             reader.onload = function (e) {
                 var img = $('#uploadedImage');
                 img.attr('src', e.target.result);
-                debugger;
                 var imgObj = new Image();
                 imgObj.src = e.target.result;
                 var result = colorThief.getPalette(imgObj);

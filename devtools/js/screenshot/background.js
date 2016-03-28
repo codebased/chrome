@@ -88,7 +88,6 @@ var takeScreenshot = {
             } else if (request.msg === "capturePage") {
                 this.capturePage(request.position, request.lastCapture);
             } else if (request.msg === "startCapture") {
-                debugger;
                 this.tabId = request.tabId;
                 chrome.tabs.sendMessage(this.tabId, {
                     "msg": "getPageDetails"
