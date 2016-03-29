@@ -3,6 +3,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="bootstrap/css/bootstrap-responsive.min.css">
+    <link rel="stylesheet" href="style.css">
     <script src="jquery/jquery-1.12.2.min.js"></script>
     <script src="bootstrap/js/bootstrap.min.js"></script>
     <script src="js/config.js"></script>
@@ -47,7 +48,8 @@
 
 
     <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="pill" href="#home">JSON</a></li>
+        <li class="active"><a data-toggle="pill" href="#home">SEARCH</a></li>
+        <li><a data-toggle="pill" href="#menu0">JSON</a></li>
         <li><a data-toggle="pill" href="#menu1">Screen</a></li>
         <li><a data-toggle="pill" href="#menu2">Artist</a></li>
         <li><a data-toggle="pill" href="#menu3">URL</a></li>
@@ -55,6 +57,50 @@
     <div class="tab-content">
 
         <div id="home" class="tab-pane fade in active">
+            <div>
+                <div class="input-group">
+                    <span class="input-group-addon">Filter</span>
+                    <input id="filter" type="text" class="form-control" placeholder="Search for links" autofocus>
+                </div>
+                <small class="text-muted">It will search in open tabs, bookmarks and history.</small>
+
+                <table class="table table-striped table-hover" id="myTable">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Open Tabs</th>
+                    </tr>
+                    </thead>
+                    <tbody class="searchable" id="searchTabResultGridView">
+
+                    </tbody>
+                </table>
+
+                <table class="table table-striped table-hover" id="bookmarkTable">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Bookmarks</th>
+                    </tr>
+                    </thead>
+                    <tbody class="searchable" id="bookMarkResultGridView">
+
+                    </tbody>
+                </table>
+
+                <table class="table table-striped table-hover" id="historyTable">
+                    <thead>
+                    <tr>
+                        <th class="text-center">History</th>
+                    </tr>
+                    </thead>
+                    <tbody class="searchable">
+
+                    </tbody>
+                </table>
+
+            </div>
+        </div>
+
+        <div id="menu0" class="tab-pane fade">
             <div id="alert_placeholder"></div>
 
             <div class="panel panel-default">
@@ -89,7 +135,6 @@
                 </div>
             </div>
         </div>
-
 
         <div id="menu1" class="tab-pane fade">
             <div class="panel panel-default">
@@ -138,7 +183,8 @@
                         <div class="form-group col-md-12">
                             <div class="icon-addon addon-lg">
                                 <label for="bigurlView" rel="tooltip" title="URL">Tiny Your URL</label>
-                                <input type="text" placeholder="Reduce your url size" class="form-control" id="bigurlView">
+                                <input type="text" placeholder="Reduce your url size" class="form-control"
+                                       id="bigurlView">
                                 <small class="text-muted">Press enter key to submit.</small>
 
                             </div>
