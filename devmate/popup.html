@@ -16,6 +16,7 @@
     <script src="js/popup.js"></script>
     <script src="js/bootstrapalert.js"></script>
     <script src="js/url.js"></script>
+    <script src="js/bookmarks.js"></script>
     <script src="js/color-thief.js"></script>
 
     <style type="text/css">
@@ -24,7 +25,8 @@
         }
 
         .bodyStyle {
-            width: 800px;
+            width: 780px;
+            height: 580px;
             overflow: scroll;
             background: #ececec;
         }
@@ -35,32 +37,22 @@
 
 <div class="container">
 
-    <div class="row">
-        <div class="form-group col-md-12">
-            <div class="icon-addon addon-lg">
-                <label for="searchTextView" rel="tooltip" title="email"></label>
-                <input type="text" placeholder="Search on Stackoverflow" class="form-control" id="searchTextView">
-                <small class="text-muted">&nbsp;&nbsp;Press enter key to submit.</small>
-
-            </div>
-        </div>
-    </div>
-
-
     <ul class="nav nav-tabs">
         <li class="active"><a data-toggle="pill" href="#home">SEARCH</a></li>
         <li><a data-toggle="pill" href="#menu0">JSON</a></li>
         <li><a data-toggle="pill" href="#menu1">Screen</a></li>
         <li><a data-toggle="pill" href="#menu2">Artist</a></li>
-        <li><a data-toggle="pill" href="#menu3">URL</a></li>
+        <li><a data-toggle="pill" href="#menu3">Others</a></li>
     </ul>
     <div class="tab-content">
 
         <div id="home" class="tab-pane fade in active">
+            <a name="tophome"></a>
+
             <div>
                 <div class="input-group">
                     <span class="input-group-addon">Filter</span>
-                    <input id="filter" type="text" class="form-control" placeholder="Search for links" autofocus>
+                    <input id="filter" type="text" class="form-control" placeholder="Search for links" tabindex="1" >
                 </div>
                 <small class="text-muted">It will search in open tabs, bookmarks and history.</small>
 
@@ -98,6 +90,11 @@
                 </table>
 
             </div>
+            <div><a href="#tophome" style="position: fixed; bottom: 20px; right: 20px;"><img src="img/arrow.png"
+                                                                                             style="width: 32px; height: 32px;"><br>
+
+                <div class="text-center">Top</div>
+            </a></div>
         </div>
 
         <div id="menu0" class="tab-pane fade">
@@ -176,7 +173,7 @@
                     <div class="pull-right">
 
                     </div>
-                    <h4>URL</h4>
+                    <h4>OTHERS</h4>
                 </div>
                 <div class="panel-body">
                     <div class="row">
@@ -190,7 +187,19 @@
                             </div>
                         </div>
                     </div>
+                    <div class="row">
+                        <div class="form-group col-md-12">
+                            <div class="icon-addon addon-lg">
+                                <label for="searchTextView" rel="tooltip" title="email"></label>
+                                <input type="text" placeholder="Search on Stackoverflow" class="form-control"
+                                       id="searchTextView">
+                                <small class="text-muted">&nbsp;&nbsp;Press enter key to submit.</small>
+
+                            </div>
+                        </div>
+                    </div>
                 </div>
+
             </div>
         </div>
     </div>

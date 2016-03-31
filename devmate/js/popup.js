@@ -147,6 +147,7 @@ $(function () {
     }
 
     function formatJsonData() {
+
         var rawJson = getRawJson();
 
         if ($.isNullOrWhiteSpace(rawJson)) return;
@@ -160,114 +161,62 @@ $(function () {
         ap.bootstrapalert.warn(("#alert_placeholder"), exception);
     }
 
-    var listOpenTabs = function () {
-        chrome.tabs.query({}, function (result) {
+    function populatePanel(outputPanel, urlList) {
+        outputPanel.empty();
 
-            var outputPanel = $("#myTable > tbody");
-            outputPanel.empty();
+        $.each(urlList, function (idx, record) {
 
-            $.each(result, function (idx, tab) {
-
+            if (!!record.url) {
                 var tr = document.createElement('tr');
                 var td1 = document.createElement('td');
-                var td1 =
-
-                    $(td1)
-                        .attr("data-url", tab.url)
-                        .attr("data-tabId", tab.id)
-                        .css("cursor", "pointer")
-                        .html(tab.title + "<br><small class='text-muted'>" + tab.url + "</small>")
-                        .click(function () {
-                            var dataTabId = $(this).attr("data-tabId");
+                $(td1)
+                    .attr("data-url", record.url)
+                    .attr("data-tabId", (record.id && record.isTab) ? record.id : 0)
+                    .css("cursor", "pointer")
+                    .addClass("word-wrap")
+                    .html(record.title + "<br><small class='text-muted word-wrap'>" + record.url + "</small>")
+                    .click(function () {
+                        var dataTabId = parseInt($(this).attr("data-tabId"));
+                        if (!!dataTabId) {
                             chrome.tabs.update(parseInt(dataTabId), {selected: true});
-                        });
-
-                $(tr).append(td1)
-                outputPanel.append(tr);
-            });
-        });
-    };
-
-    var listBookmarks = function () {
-
-        var bm_urls = new Array();
-
-        function fetch_bookmarks(parentNode) {
-            parentNode.forEach(function (bookmark) {
-                if (!(bookmark.url === undefined || bookmark.url === null)) {
-                    bm_urls.push({url: bookmark.url, title: bookmark.title});
-                }
-                if (bookmark.children) {
-                    fetch_bookmarks(bookmark.children);
-                }
-            });
-        }
-
-        chrome.bookmarks.getTree(function (rootNode) {
-            fetch_bookmarks(rootNode);
-
-            debugger;
-            var outputPanel = $("#bookmarkTable > tbody");
-            outputPanel.empty();
-
-            $.each(bm_urls, function (idx, item) {
-
-                debugger;
-                if (!!item.url) {
-                    var tr = document.createElement('tr');
-                    var td1 = document.createElement('td');
-                    var td1 =
-
-                        $(td1)
-                            .attr("data-url", item.url)
-                            .css("cursor", "pointer")
-                            .addClass("word-wrap")
-                            .html(item.title + "<br><small class='text-muted'>" + item.url + "</small>")
-                            .click(function () {
-                                var url = $(this).attr("data-url");
-                                chrome.tabs.create({
-                                    'url': url
-                                });
-                            });
-                    $(tr).append(td1)
-                    outputPanel.append(tr);
-                }
-            });
-        });
-    }
-
-    var listHistories = function () {
-        debugger;
-
-        chrome.history.search({text: ''}, function (result) {
-            var outputPanel = $("#historyTable > tbody");
-            outputPanel.empty();
-
-            $.each(result, function (idx, tab) {
-
-                var tr = document.createElement('tr');
-                var td1 = document.createElement('td');
-                var td1 =
-
-                    $(td1)
-                        .attr("data-url", tab.url)
-                        .css("cursor", "pointer")
-                        .addClass("word-wrap")
-                        .html(tab.title + "<br><small class='text-muted'>" + tab.url + "</small>")
-                        .click(function () {
+                        } else {
                             var url = $(this).attr("data-url");
                             chrome.tabs.create({
                                 'url': url
                             });
-                        });
-
+                        }
+                    });
                 $(tr).append(td1)
                 outputPanel.append(tr);
-            });
+            }
+        });
+    }
+
+    var listOpenTabs = function () {
+        chrome.tabs.query({}, function (result) {
+            var outputPanel = $("#myTable > tbody");
+            outputPanel.empty();
+            populatePanel(outputPanel, result);
+        });
+    };
+
+    var listBookmarks = function () {
+        ap.bookmarks.getAll(function (bookmarks) {
+            var outputPanel = $("#bookmarkTable > tbody");
+            populatePanel(outputPanel, bookmarks);
+        });
+
+    }
+
+    var listHistories = function () {
+        chrome.history.search({text: ''}, function (result) {
+            var outputPanel = $("#historyTable > tbody");
+            populatePanel(outputPanel, result);
         });
     }
 
     function init() {
+
         $('.bottomtooltip').tooltip({
             'show': true,
             'placement': 'bottom'
@@ -285,7 +234,7 @@ $(function () {
                 return rex.test($(this).text());
             }).show();
 
-        });
+        }).focus();
 
 
         chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
@@ -299,8 +248,5 @@ $(function () {
         });
     }
 
-
     init()
-
-})
-;
+});

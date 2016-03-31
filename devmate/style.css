@@ -1,0 +1,18 @@
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #2fa476;
+
+}
+
+table {
+    table-layout:fixed;
+}
+
+.word-wrap {
+    /*-ms-word-break: break-all;*/
+    word-break: break-all;
+
+
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
