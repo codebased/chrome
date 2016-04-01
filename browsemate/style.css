@@ -15,3 +15,8 @@ table {
     overflow: hidden;
     text-overflow: ellipsis;
 }
+
+.selected{
+    background-color: #e38d13;
+    bgcolor: #e38d13;
+}

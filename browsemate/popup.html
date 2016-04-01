@@ -11,6 +11,7 @@
     <script src="js/popup.js"></script>
     <script src="js/bookmarks.js"></script>
     <script src="js/jquery.table_navigation.js"></script>
+    <script src="js/q.js"></script>
 
     <style type="text/css">
         .textArea {
@@ -28,48 +29,58 @@
 <body class="bodyStyle">
 <br/>
 
-<div class="container">
+<div class=" ">
     <div id="home" class="tab-pane fade in active">
         <a name="tophome"></a>
+
         <div>
             <div class="input-group">
                 <span class="input-group-addon">Filter</span>
                 <input id="filter" type="text" class="form-control" placeholder="Search for links" tabindex="1">
             </div>
-            <small class="text-muted">It will search in open tabs, bookmarks and history.</small>
+            <small class="text-muted">It will search in open tabs, bookmarks and history links.</small>
+            <br/>
 
-            <table class="table table-striped table-hover navigateable" id="myTable">
-                <thead>
-                <tr>
-                    <th class="text-center">Open Tabs</th>
-                </tr>
-                </thead>
-                <tbody class="searchable" id="searchTabResultGridView">
+            <div class="table-responsive">
+                <table class="table table-bordered  table-hover navigateable" id="myTable">
+                    <thead>
+                    <tr>
+                        <th class="text-center">
+                            <small>Open Tabs</small>
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody class="searchable" id="searchTabResultGridView">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
 
-            <table class="table table-striped table-hover" id="bookmarkTable">
-                <thead>
-                <tr>
-                    <th class="text-center">Bookmarks</th>
-                </tr>
-                </thead>
-                <tbody class="searchable" id="bookMarkResultGridView">
+            <div class="table-responsive">
+                <table class="table  table-bordered table-hover navigateable" id="bookmarkTable">
+                    <thead>
+                    <tr>
+                        <th class="text-center">Bookmarks</th>
+                    </tr>
+                    </thead>
+                    <tbody class="searchable" id="bookMarkResultGridView">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
+            <div class="table-responsive">
 
-            <table class="table table-striped table-hover" id="historyTable">
-                <thead>
-                <tr>
-                    <th class="text-center">History</th>
-                </tr>
-                </thead>
-                <tbody class="searchable">
+                <table class="table table-bordered table-hover navigateable" id="historyTable">
+                    <thead>
+                    <tr>
+                        <th class="text-center">History</th>
+                    </tr>
+                    </thead>
+                    <tbody class="searchable">
 
-                </tbody>
-            </table>
+                    </tbody>
+                </table>
+            </div>
 
         </div>
         <div><a href="#tophome" style="position: fixed; bottom: 20px; right: 20px;"><img src="img/arrow.png"

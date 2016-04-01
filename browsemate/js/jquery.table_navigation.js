@@ -116,7 +116,7 @@ jQuery.tableNavigation = function (settings) {
             table_selector: 'table.navigateable',
             row_selector: 'table.navigateable tbody tr',
             selected_class: 'selected',
-            activation_selector: 'a.activated',
+            activation_selector: 'tr.activated',
             bind_key_events_to_links: true,
             focus_links_on_select: true,
             select_event: 'click',
@@ -129,7 +129,7 @@ jQuery.tableNavigation = function (settings) {
             jump_between_tables: true,
             disabled: false,
             on_activate: null,
-            on_select: null
+            on_select: null,
         }, settings);
     } else {
         jQuery.extendedNavigation.settings = jQuery.extend(jQuery.extendedNavigation.settings, settings);
@@ -197,11 +197,16 @@ jQuery.tableNavigation = function (settings) {
                 return
             }
 
-            var key_code = e.keyCode;
+            var key_code = e.shiftKey && e.keyCode == 9 ? 9000 : e.keyCode;
             switch (key_code) {
                 case 40: // arrow down
                 case 39: // arrow right
-                    var next_row = getSelectedRow().next();
+                case 9: // tab
+                    // do you have any other better way to select visible specially when the display has table-row value instead of visible.
+                    //var next_row = getSelectedRow().next('tr:visible');
+
+                    var next_row = $(getSelectedRow()).find("~tr:not(':hidden')");
+
                     if (next_row.length > 0) {
                         // selectRow returns true if the next row was selected. In this case we does not want
                         // the arrow keys to cause a page scroll because the script handles the scrolling. However
@@ -211,42 +216,84 @@ jQuery.tableNavigation = function (settings) {
                         var r = !selectRow(next_row.get(0));
                         return r;
                     } else if (jQuery.extendedNavigation.settings.jump_between_tables) {
+
                         var current_table = getSelectedRow().parents(jQuery.extendedNavigation.settings.table_selector).get(0);
                         var all_tables = jQuery.extendedNavigation.tables;
-                        var next_row = undefined;
+                        var table_idx = $(all_tables).index(current_table);
+
                         all_tables.each(function (index) {
-                            if (this == current_table) {
-                                var next_table = all_tables.eq(index + 1);
-                                if (next_table != undefined) {
-                                    next_row = next_table.find('tbody tr:first')
-                                }
-                                ;
+                            var next_table = all_tables.eq(table_idx + 1);
+                            if (next_table.length == 0) {
+                                next_table = all_tables.eq(0);
+                                table_idx = 0;
+                            } else {
+                                table_idx++;
                             }
+                            next_row = next_table.find("tbody tr:not(':hidden')");
+
+                            if (next_row.length > 0) return false;
                         });
+
+                        //var next_row = undefined;
+                        //all_tables.each(function (index) {
+                        //    if (this == current_table) {
+                        //        var next_table = all_tables.eq(index + 1);
+                        //        if (next_table != undefined) {
+                        //            next_row = next_table.find('tbody tr:first')
+                        //        } else {
+                        //            next_table = all_tables.eq(0);
+                        //            if (next_table != undefined) {
+                        //                next_row = next_table.find("tbody tr:not(':hidden')");
+                        //            }
+                        //        }
+                        //    }
+                        //});
+
                         return !selectRow(next_row.get(0));
                     }
                     break;
                 case 38: // arrow up
                 case 37: // arrow left
-                    var prev_row = getSelectedRow().prev();
+                case 9000: // shift tab
+                    //var prev_row = getSelectedRow().prev();
+                    var prev_row = $(getSelectedRow()).prevAll("tr:not(':hidden')");
                     if (prev_row.length > 0) {
                         // See the big comment block above for an explaination of this "return" line and it's
                         // exclamation mark.
                         var r = !selectRow(prev_row.get(0));
                         return r;
                     } else if (jQuery.extendedNavigation.settings.jump_between_tables) {
+
                         var current_table = getSelectedRow().parents(jQuery.extendedNavigation.settings.table_selector).get(0);
                         var all_tables = jQuery.extendedNavigation.tables;
-                        var prev_row = null;
+                        var table_idx = $(all_tables).index(current_table);
+
                         all_tables.each(function (index) {
-                            if (this == current_table) {
-                                var prev_table = all_tables.eq(index - 1);
-                                if (prev_table != undefined) {
-                                    prev_row = prev_table.find('tbody tr:last')
-                                }
-                                ;
+                            var prev_table = all_tables.eq(table_idx - 1);
+                            if (prev_table.length == 0) {
+                                prev_table = all_tables.eq(all_tables.length -1);
+                                table_idx = all_tables-1;
+                            } else {
+                                table_idx--;
                             }
+
+                            prev_row = prev_table.find("tbody tr:not(':hidden')").last();
+
+                            if (prev_row.length > 0) return false;
                         });
+                        //var current_table = getSelectedRow().parents(jQuery.extendedNavigation.settings.table_selector).get(0);
+                        //var all_tables = jQuery.extendedNavigation.tables;
+                        //var prev_row = null;
+                        //all_tables.each(function (index) {
+                        //    if (this == current_table) {
+                        //        var prev_table = all_tables.eq(index - 1);
+                        //        if (prev_table != undefined) {
+                        //            //prev_row = prev_table.find('tbody tr:last')
+                        //            prev_row = prev_table.find("tbody tr:not(':hidden')").last();
+                        //        }
+                        //        ;
+                        //    }
+                        //});
                         return !selectRow(prev_row.get(0));
                     }
                     break;
@@ -324,9 +371,9 @@ jQuery.tableNavigation = function (settings) {
      * Returns false if there is no row to select otherwise true.
      */
     function selectRow(row) {
+        console.log('I am called');
         if (row != undefined && row.nodeName.toLowerCase() == "tr") {
             var do_default_action = executeEventHandler(row, jQuery.extendedNavigation.settings.on_select);
-
             if (do_default_action) {
                 getSelectedRow().removeClass(jQuery.extendedNavigation.settings.selected_class);
                 jQuery(row).addClass(jQuery.extendedNavigation.settings.selected_class);
@@ -378,6 +425,7 @@ jQuery.tableNavigation = function (settings) {
      *   option (see begin of file).
      */
     function activateRow(row) {
+        debugger;
         if (row != undefined) {
             selectRow(row);
 
@@ -416,6 +464,7 @@ jQuery.tableNavigation = function (settings) {
      * corresponding event should be done (true) or if it should be skipped (false).
      */
     function executeEventHandler(row, action) {
+
         if (typeof action == "function") {
             return action(row);
         }
