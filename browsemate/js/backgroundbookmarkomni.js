@@ -13,6 +13,9 @@
             clearTimeout(wait);
             wait = setTimeout(function () {
                 var suggestions = [];
+
+                chrome.omnibox.setDefaultSuggestion({"description" : "Search <match>" + services.escapeXML(criteria) + "</match> in Bookmarks"});
+
                 chrome.tabs.query({}, function (searchresult) {
 
                     var rex = new RegExp(criteria, 'ig');
@@ -28,10 +31,10 @@
 
 
                             // let the default bookmark comes first.
-                            suggestions.push({
-                                'content': "?" + criteria,
-                                'description': "Search <match>" + services.escapeXML(criteria) + "</match> in Bookmarks"
-                            });
+                            //suggestions.push({
+                            //    'content': "?" + criteria,
+                            //    'description': "Search <match>" + services.escapeXML(criteria) + "</match> in Bookmarks"
+                            //});
 
                             suggestions = services.prepareSuggestions(searchresult, suggestions, 5, "browse", " in bookmark");
 
@@ -106,7 +109,7 @@
                 });
                 break;
             case DISPOSITIONOPTIONS.existingTab:
-                chrome.tabs.query({url: url}, function (result) {
+                chrome.tabs.query({url: url.split('#')[0]}, function (result) {
                     if (!!result && result.length > 0) {
                         chrome.tabs.update(result[0].id, {selected: true});
                     }
