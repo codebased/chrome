@@ -7,19 +7,48 @@
         escapeXML: escapeXML
     }
 
+    var wait;
     chrome.omnibox.onInputChanged.addListener(
         function (criteria, suggest) {
-            chrome.bookmarks.search(criteria, function (searchresult) {
+            clearTimeout(wait);
+            wait = setTimeout(function () {
                 var suggestions = [];
-                // let the default bookmark comes first.
-                suggestions.push({
-                    'content': "?" + criteria,
-                    'description': "Search <match>" + services.escapeXML(criteria) + "</match> in Bookmarks"
-                });
+                chrome.tabs.query({}, function (searchresult) {
 
-                suggestions = services.prepareSuggestions(searchresult, suggestions, 5);
-                suggest(suggestions);
-            });
+                    var rex = new RegExp(criteria, 'ig');
+
+                    searchresult = $.grep(searchresult, function (tab) {
+                        return (tab.url && rex.test(tab.url)) || (tab.title && rex.test(tab.title));
+                    });
+
+                    suggestions = services.prepareSuggestions(searchresult, suggestions, 5, "tab", " in tab");
+
+                    if (suggestions.length < 5) {
+                        chrome.bookmarks.search(criteria, function (searchresult) {
+
+
+                            // let the default bookmark comes first.
+                            suggestions.push({
+                                'content': "?" + criteria,
+                                'description': "Search <match>" + services.escapeXML(criteria) + "</match> in Bookmarks"
+                            });
+
+                            suggestions = services.prepareSuggestions(searchresult, suggestions, 5, "browse", " in bookmark");
+
+                            if (suggestions.length < 5) {
+                                chrome.history.search({text: criteria}, function (searchresult) {
+                                    suggestions = services.prepareSuggestions(searchresult, suggestions, 5, "browse", " in history");
+                                    suggest(suggestions);
+                                });
+                            } else {
+                                suggest(suggestions);
+                            }
+                        });
+                    } else {
+                        suggest(suggestions);
+                    }
+                });
+            }, 500);
         }
     );
 
@@ -27,15 +56,15 @@
         services.navigate(text, disposition)
     });
 
-    function prepareSuggestions(searchresult, suggestions, length) {
+    function prepareSuggestions(searchresult, suggestions, length, prefixCommand, postfixDescription) {
 
         $.each(searchresult, function (idx, item) {
 
             if (!!item.url) {
                 // if it is folder then the url is undefined.
                 suggestions.push({
-                    'content': "browse " + item.url,
-                    'description': services.escapeXML(item.title)
+                    'content': prefixCommand + " " + item.url,
+                    'description': "Search <match>" + services.escapeXML(item.title) + "</match>" + (postfixDescription || "")
                 });
             }
 
@@ -52,9 +81,12 @@
     function navigate(text, disposition) {
         if (text.substring(0, 7) === "browse ") {
             services.nav(text.substr(7), disposition);
+        } else if (text.substr(0, 4) === "tab ") {
+            services.nav(text.substr(4), "existingTab");
         } else if (text.substr(0, 1) == "?") {
             services.nav("chrome://bookmarks/#q=" + text.substr(1), disposition);
-        } else {
+        }
+        else {
             services.nav("chrome://bookmarks/#q=" + text, disposition);
         }
     }
@@ -73,6 +105,13 @@
                     'active': false
                 });
                 break;
+            case DISPOSITIONOPTIONS.existingTab:
+                chrome.tabs.query({url: url}, function (result) {
+                    if (!!result && result.length > 0) {
+                        chrome.tabs.update(result[0].id, {selected: true});
+                    }
+                });
+                break;
             case DISPOSITIONOPTIONS.currentTab:
             default:
                 chrome.tabs.update({
@@ -81,5 +120,5 @@
         }
     }
 
-    var DISPOSITIONOPTIONS = Object.freeze({currentTab: 0, newForegroundTab: 1, newBackgroundTab: 2});
+    var DISPOSITIONOPTIONS = Object.freeze({currentTab: 0, newForegroundTab: 1, newBackgroundTab: 2, existingTab: 3});
 })();
