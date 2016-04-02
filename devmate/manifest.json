@@ -16,6 +16,7 @@
     "clipboardWrite",
     "activeTab",
     "tabs",
+    "history",
     "bookmarks",
     "contextMenus",
     "http://json2csharp.com/Home/GenerateClasses"

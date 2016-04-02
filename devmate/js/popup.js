@@ -55,10 +55,6 @@ $(function () {
     });
 
 
-    chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
-        $("#bigurlView").val(tabs[0].url);
-    });
-
     $("#bigurlView").keypress(function (e) {
         if (e.keyCode == 13) {
             var bigUrl = $(this).val();
@@ -76,6 +72,11 @@ $(function () {
 
     $("#colorImage").change(function () {
         readImage(this);
+    });
+
+    $("#searchTabTextView").keypress(function (e) {
+        var searchFor = $(this).val();
+
     });
 
     function readImage(input) {
@@ -146,6 +147,7 @@ $(function () {
     }
 
     function formatJsonData() {
+
         var rawJson = getRawJson();
 
         if ($.isNullOrWhiteSpace(rawJson)) return;
@@ -159,10 +161,84 @@ $(function () {
         ap.bootstrapalert.warn(("#alert_placeholder"), exception);
     }
 
+    function populatePanel(outputPanel, urlList) {
+        outputPanel.empty();
+
+        $.each(urlList, function (idx, record) {
+
+            if (!!record.url) {
+                var tr = document.createElement('tr');
+                var td1 = document.createElement('td');
+                $(td1)
+                    .attr("data-url", record.url)
+                    .attr("data-tabId", (record.id && record.isTab) ? record.id : 0)
+                    .css("cursor", "pointer")
+                    .addClass("word-wrap")
+                    .html(record.title + "<br><small class='text-muted word-wrap'>" + record.url + "</small>")
+                    .click(function () {
+                        var dataTabId = parseInt($(this).attr("data-tabId"));
+                        if (!!dataTabId) {
+                            chrome.tabs.update(parseInt(dataTabId), {selected: true});
+                        } else {
+                            var url = $(this).attr("data-url");
+                            chrome.tabs.create({
+                                'url': url
+                            });
+                        }
+                    });
+                $(tr).append(td1)
+                outputPanel.append(tr);
+            }
+        });
+    }
+
+    var listOpenTabs = function () {
+        chrome.tabs.query({}, function (result) {
+            var outputPanel = $("#myTable > tbody");
+            outputPanel.empty();
+            populatePanel(outputPanel, result);
+        });
+    };
+
+    var listBookmarks = function () {
+        ap.bookmarks.getAll(function (bookmarks) {
+            var outputPanel = $("#bookmarkTable > tbody");
+            populatePanel(outputPanel, bookmarks);
+        });
+
+    }
+
+    var listHistories = function () {
+        chrome.history.search({text: ''}, function (result) {
+            var outputPanel = $("#historyTable > tbody");
+            populatePanel(outputPanel, result);
+        });
+    }
+
     function init() {
+
         $('.bottomtooltip').tooltip({
             'show': true,
             'placement': 'bottom'
+        });
+
+        listOpenTabs();
+        listBookmarks();
+        listHistories();
+
+        $('#filter').keyup(function () {
+            var rex = new RegExp($(this).val(), 'i');
+
+            $('.searchable tr').hide();
+            $('.searchable tr').filter(function () {
+                return rex.test($(this).text());
+            }).show();
+
+        }).focus();
+
+
+        chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
+            $("#bigurlView").val(tabs[0].url);
         });
     }
 
@@ -172,7 +248,5 @@ $(function () {
         });
     }
 
-
     init()
-
 });
