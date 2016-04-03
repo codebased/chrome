@@ -12,6 +12,7 @@ $(function () {
                     .attr("data-rowindex", idx)
                     .attr("data-url", record.url)
                     .attr("data-tabId", (record.id && record.isTab) ? record.id : 0)
+                    .attr("data-windowId", (record.id && record.isTab) ? record.windowId : 0)
                     .css("cursor", "pointer")
                     .addClass("word-wrap")
                     .html(record.title + "<br><small class='text-muted word-wrap '>" + record.url + "</small>")
@@ -80,8 +81,12 @@ $(function () {
                 on_activate: function (row) {
                     var td = $($(row).find('td')[0]);
                     var dataTabId = parseInt($(td).data("tabid"));
+                    var dataWindowId = parseInt($(td).data("windowid"));
                     if (!!dataTabId) {
-                        chrome.tabs.update(parseInt(dataTabId), {selected: true});
+                        chrome.tabs.update(parseInt(dataTabId), {selected: true, highlighted: true, active: true});
+                        if (!!dataWindowId) {
+                            chrome.windows.update(dataWindowId, {focused: true});
+                        }
                     } else {
                         var url = $(td).data("url");
                         chrome.tabs.create({
@@ -102,14 +107,14 @@ $(function () {
         }).focus();
     }
 
-    $.fn.wrapInTag = function(opts) {
+    $.fn.wrapInTag = function (opts) {
 
         var tag = opts.tag || 'strong',
             words = opts.words || [],
             regex = RegExp(words.join('|'), 'gi'),
-            replacement = '<'+ tag +'>$&</'+ tag +'>';
+            replacement = '<' + tag + '>$&</' + tag + '>';
 
-        return this.html(function() {
+        return this.html(function () {
             return $(this).text().replace(regex, replacement);
         });
     };

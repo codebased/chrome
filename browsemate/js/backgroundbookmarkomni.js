@@ -14,7 +14,7 @@
             wait = setTimeout(function () {
                 var suggestions = [];
 
-                chrome.omnibox.setDefaultSuggestion({"description" : "Search <match>" + services.escapeXML(criteria) + "</match> in Bookmarks"});
+                chrome.omnibox.setDefaultSuggestion({"description": "Search <match>" + services.escapeXML(criteria) + "</match> in Bookmarks"});
 
                 chrome.tabs.query({}, function (searchresult) {
 
@@ -111,7 +111,7 @@
             case DISPOSITIONOPTIONS.existingTab:
                 chrome.tabs.query({url: url.split('#')[0]}, function (result) {
                     if (!!result && result.length > 0) {
-                        chrome.tabs.update(result[0].id, {selected: true});
+                        chrome.tabs.update(result[0].id, {selected: true, highlighted: true, active: true});
                     }
                 });
                 break;
