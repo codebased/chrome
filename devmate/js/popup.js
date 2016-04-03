@@ -192,28 +192,7 @@ $(function () {
         });
     }
 
-    var listOpenTabs = function () {
-        chrome.tabs.query({}, function (result) {
-            var outputPanel = $("#myTable > tbody");
-            outputPanel.empty();
-            populatePanel(outputPanel, result);
-        });
-    };
 
-    var listBookmarks = function () {
-        ap.bookmarks.getAll(function (bookmarks) {
-            var outputPanel = $("#bookmarkTable > tbody");
-            populatePanel(outputPanel, bookmarks);
-        });
-
-    }
-
-    var listHistories = function () {
-        chrome.history.search({text: ''}, function (result) {
-            var outputPanel = $("#historyTable > tbody");
-            populatePanel(outputPanel, result);
-        });
-    }
 
     function init() {
 
@@ -221,21 +200,6 @@ $(function () {
             'show': true,
             'placement': 'bottom'
         });
-
-        listOpenTabs();
-        listBookmarks();
-        listHistories();
-
-        $('#filter').keyup(function () {
-            var rex = new RegExp($(this).val(), 'i');
-
-            $('.searchable tr').hide();
-            $('.searchable tr').filter(function () {
-                return rex.test($(this).text());
-            }).show();
-
-        }).focus();
-
 
         chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
             $("#bigurlView").val(tabs[0].url);
