@@ -3,7 +3,7 @@
   "name": "Devmate",
   "short_name": "Devmate",
   "author": "codebased@gmail.com",
-  "version": "0.10",
+  "version": "0.11",
   "omnibox": {"keyword": "dm"},
   "description": "Whatever, whenever there is a need of automate stuff, I am going to write into this extension for better productivity",
   "icons": {
