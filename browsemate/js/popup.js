@@ -55,7 +55,7 @@ $(function () {
     var listHistories = function () {
         var deferred = Q.defer();
 
-        chrome.history.search({text: ''}, function (result) {
+        chrome.history.search({text: '', maxResults: 0}, function (result) {
             console.log('listHistories')
             var outputPanel = $("#historyTable > tbody");
             populatePanel(outputPanel, result);
