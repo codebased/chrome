@@ -3,7 +3,7 @@
   "name": "Browsemate",
   "short_name": "Browsemate",
   "author": "codebased@gmail.com",
-  "version": "0.3",
+  "version": "0.3.1",
   "omnibox": {"keyword": "bm"},
   "description": "Search in your open tabs, bookmark links and even your history.",
   "icons": {
