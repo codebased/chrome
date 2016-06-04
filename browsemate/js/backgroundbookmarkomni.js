@@ -39,7 +39,7 @@
                             suggestions = services.prepareSuggestions(searchresult, suggestions, 5, "browse", " in bookmark");
 
                             if (suggestions.length < 5) {
-                                chrome.history.search({text: criteria}, function (searchresult) {
+                                chrome.history.search({text: criteria, maxResults: 0}, function (searchresult) {
                                     suggestions = services.prepareSuggestions(searchresult, suggestions, 5, "browse", " in history");
                                     suggest(suggestions);
                                 });
