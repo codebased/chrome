@@ -5,7 +5,12 @@ $(function () {
 
         $.each(urlList, function (idx, record) {
 
+            var titleRequired = settings && settings.excludeNoTitleItems;
+
             if (!!record.url) {
+
+                if (titleRequired && !record.title) return;
+
                 var tr = document.createElement('tr');
                 var td1 = document.createElement('td');
                 $(td1)
@@ -66,10 +71,55 @@ $(function () {
 
     function init() {
 
+
+        var defaultSettings = {
+            includeBookmark: true,
+            includeHistory: true,
+            excludeNoTitleItems: false
+        }
+
+        settings = defaultSettings;
+
+        chrome.storage.sync.get(defaultSettings, function (savedSettings) {
+            settings = savedSettings;
+            $("#includeBookmark").prop("checked", savedSettings.includeBookmark);
+            $("#includeHistory").prop("checked", savedSettings.includeHistory);
+
+            if (savedSettings.includeHistory) {
+                $("#historyTable").show()
+            } else {
+                $("#historyTable").hide();
+            }
+            if (savedSettings.includeBookmark) {
+                $("#bookmarkTable").show()
+            } else {
+                $("#bookmarkTable").hide();
+            }
+        });
+
+        $('#includeBookmark').click(function () {
+            if ($(this).is(':checked')) {
+                $("#bookmarkTable").show()
+            } else {
+                $("#bookmarkTable").hide();
+            }
+            $("#filter").focus()
+        });
+
+        $('#includeHistory').click(function () {
+            if ($(this).is(':checked')) {
+                $("#historyTable").show()
+            } else {
+                $("#historyTable").hide();
+            }
+            $("#filter").focus()
+        });
+
         $('.bottomtooltip').tooltip({
             'show': true,
             'placement': 'bottom'
         });
+
 
         Q.fcall(listOpenTabs).then(listBookmarks).then(listHistories).then(function () {
             console.log('tableNavigation')
@@ -106,6 +156,8 @@ $(function () {
             }).show();
         }).focus();
     }
+
+    var settings = null;
 
     $.fn.wrapInTag = function (opts) {
 

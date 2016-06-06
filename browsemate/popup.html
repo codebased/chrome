@@ -38,10 +38,23 @@
                 <span class="input-group-addon">Filter</span>
                 <input id="filter" type="text" class="form-control" placeholder="Search for links" tabindex="1">
             </div>
-            <small class="text-muted">It will search in open tabs, bookmarks and history links.<a href="https://github.com/codebased/chrome/wiki" target="_blank" class="pull-right">Help</a></small>
+
+            <small class="text-muted ">
+                <label><input type="checkbox" id="includeBookmark"> Bookmark&nbsp;&nbsp;</label>
+                <label><input type="checkbox" id="includeHistory"> History </label>
+                <a class="pull-right" href="https://github.com/codebased/chrome/wiki"
+                   target="_blank">Help</a>
+                <span class="pull-right">&nbsp;|&nbsp;</span>
+
+                <a class="pull-right" href="options.html"
+                   target="_blank">Preferences</a>
+                </span>
+            </small>
+
+            <br/>
             <br/>
 
-            <div class="table-responsive">
+            <div class="table-responsive" style="border: 0px solid #ddd; !important;">
                 <table class="table table-bordered  table-hover navigateable" id="myTable">
                     <thead>
                     <tr>
@@ -56,7 +69,7 @@
                 </table>
             </div>
 
-            <div class="table-responsive">
+            <div class="table-responsive" style="border: 0px solid #ddd; !important;">
                 <table class="table  table-bordered table-hover navigateable" id="bookmarkTable">
                     <thead>
                     <tr>
@@ -68,7 +81,8 @@
                     </tbody>
                 </table>
             </div>
-            <div class="table-responsive">
+
+            <div class="table-responsive" style="border: 0px solid #ddd; !important;">
 
                 <table class="table table-bordered table-hover navigateable" id="historyTable">
                     <thead>
