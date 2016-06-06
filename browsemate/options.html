@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+<head><title>Browsemate Options</title>
+    <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
+</head>
+<body>
+
+<!-- Fixed navbar -->
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar"
+                    aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only">Browsemate Options</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">Browsemate</a>
+        </div>
+        <div id="navbar" class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#preferences">Preferences</a></li>
+            </ul>
+        </div>
+        <!--/.nav-collapse -->
+    </div>
+</nav>
+
+<div class="container" id="settings">
+
+    <div class="row">
+        <br/>
+        <br/>
+        <br/>
+
+        <h3>Search</h3>
+    </div>
+
+    <form role="form">
+        <div class="checkbox">
+            <label><input type="checkbox" id="includeBookmark">Include Bookmark</label>
+        </div>
+        <div class="checkbox">
+            <label><input type="checkbox" id="includeHistory">Include History</label>
+        </div>
+
+        <div class="checkbox" style="margin-top: 20px">
+            <label><input type="checkbox" id="excludeNoTitleItems" ><span style="color: red; ">
+                Exclude links with no title</span></label>
+        </div>
+
+    </form>
+
+    <br/>
+    <br/>
+    <button id="save" class="btn btn-primary">Save</button>
+
+</div>
+
+
+<script src="jquery/jquery-1.12.2.min.js"></script>
+<script src="bootstrap/js/bootstrap.min.js"></script>
+<script src="js/options.js"></script>
+
+</body>
+</html>

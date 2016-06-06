@@ -3,7 +3,7 @@
   "name": "Browsemate",
   "short_name": "Browsemate",
   "author": "codebased@gmail.com",
-  "version": "0.3.1",
+  "version": "0.4",
   "omnibox": {"keyword": "bm"},
   "description": "Search in your open tabs, bookmark links and even your history.",
   "icons": {
@@ -14,7 +14,9 @@
   "permissions": [
     "tabs",
     "history",
-    "bookmarks"
+    "bookmarks",
+    "notifications",
+    "storage"
   ],
   "background": {
     "scripts": [
@@ -27,5 +29,6 @@
     "default_icon": "img/ic_launcher.png",
     "default_popup": "popup.html"
   },
-  "content_security_policy": "script-src 'self'; object-src 'self'"
+  "content_security_policy": "script-src 'self'; object-src 'self'",
+  "options_page": "options.html"
 }
