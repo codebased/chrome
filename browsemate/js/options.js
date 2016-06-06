@@ -15,7 +15,7 @@ function save_options() {
 
     chrome.storage.sync.set(settings, function () {
         chrome.notifications.create("1024", {
-            type: "basic", title: "Settings", message: "Your settings have been saved.",
+            type: "basic", title: "Preferences", message: "Your preferences have been saved.",
             iconUrl: "../img/ic_launcher.png"
         }, function () {
         });
