@@ -25,7 +25,7 @@ $(function () {
         if ($.isNullOrWhiteSpace(jsonData)) return;
 
         if (ap.network.hasConnection()) {
-            $.post('http://json2csharp.com/Home/GenerateClasses', {"json": jsonData}, function (data) {
+            $.post('http://json2csharp.com/Home/GenerateClasses', { "json": jsonData }, function (data) {
                 var plain = '';
                 $.each(data.Classes, function (idx, o) {
                     plain += data.Classes[idx];
@@ -50,7 +50,7 @@ $(function () {
     $("#searchTextView").keypress(function (e) {
         if (e.keyCode == 13) {
             var serviceCall = 'http://stackoverflow.com/search?q=' + encodeURIComponent($("#searchTextView").val());
-            chrome.tabs.create({url: serviceCall});
+            chrome.tabs.create({ url: serviceCall });
         }
     });
 
@@ -76,8 +76,35 @@ $(function () {
 
     $("#searchTabTextView").keypress(function (e) {
         var searchFor = $(this).val();
-
     });
+
+    $("#guidTextView").keypress(function (e) {
+        if (e.keyCode == 13) {
+            var guid = generateUUID();
+            $(this).val(guid);
+            ap.clipboard.copyText($(this));
+        }
+    });
+
+    $("#generateGUIDBtn").click(function () {
+        var guid = generateUUID();
+        $("#guidTextView").val(guid);
+        ap.clipboard.copyText($("#guidTextView"));
+    });
+
+    function generateUUID() {
+        var d = new Date().getTime();
+        if (window.performance && typeof window.performance.now === "function") {
+            d += performance.now(); //use high-precision timer if available
+        }
+        var uuid = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace(/[xy]/g, function (c) {
+            var r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == 'x' ? r : (r & 0x3 | 0x8)).toString(16);
+        });
+        return uuid;
+    }
+
 
     function readImage(input) {
         if (input.files && input.files[0]) {
@@ -133,7 +160,7 @@ $(function () {
     }
 
     function startCapture(tabId) {
-        chrome.extension.sendMessage({msg: "startCapture", tabId: tabId});
+        chrome.extension.sendMessage({ msg: "startCapture", tabId: tabId });
         window.close();
     }
 
@@ -178,7 +205,7 @@ $(function () {
                     .click(function () {
                         var dataTabId = parseInt($(this).attr("data-tabId"));
                         if (!!dataTabId) {
-                            chrome.tabs.update(parseInt(dataTabId), {selected: true});
+                            chrome.tabs.update(parseInt(dataTabId), { selected: true });
                         } else {
                             var url = $(this).attr("data-url");
                             chrome.tabs.create({
@@ -201,13 +228,13 @@ $(function () {
             'placement': 'bottom'
         });
 
-        chrome.tabs.query({currentWindow: true, active: true}, function (tabs) {
+        chrome.tabs.query({ currentWindow: true, active: true }, function (tabs) {
             $("#bigurlView").val(tabs[0].url);
         });
     }
 
     function getTabId(fun) {
-        chrome.tabs.query({currentWindow: true, active: true}, function (tabArray) {
+        chrome.tabs.query({ currentWindow: true, active: true }, function (tabArray) {
             fun(tabArray[0].id);
         });
     }
