@@ -1,4 +1,5 @@
 <html>
+
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <link rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
@@ -22,7 +23,7 @@
         .textArea {
             width: 100%;
         }
-
+        
         .bodyStyle {
             width: 780px;
             height: 580px;
@@ -31,118 +32,127 @@
         }
     </style>
 </head>
+
 <body class="bodyStyle">
-<br/>
+    <br/>
 
-<div class="container">
+    <div class="container">
 
-    <ul class="nav nav-tabs">
-        <li class="active"><a data-toggle="pill" href="#menu0">JSON</a></li>
-        <li><a data-toggle="pill" href="#menu2">Artist</a></li>
-        <li><a data-toggle="pill" href="#menu3">Others</a></li>
-    </ul>
-    <div class="tab-content">
+        <ul class="nav nav-tabs">
+            <li class="active"><a data-toggle="pill" href="#menu0">JSON</a></li>
+            <li><a data-toggle="pill" href="#menu2">Artist</a></li>
+            <li><a data-toggle="pill" href="#menu3">Others</a></li>
+        </ul>
+        <div class="tab-content">
 
-        <div id="menu0" class="tab-pane fade in active">
-            <div id="alert_placeholder"></div>
+            <div id="menu0" class="tab-pane fade in active">
+                <div id="alert_placeholder"></div>
 
-            <div class="panel panel-default">
+                <div class="panel panel-default">
 
-                <div class="panel-heading">
-                    <div class="pull-right">
-                        <a id="formatButton" data-toggle="tooltip"
-                           data-title="Make your Json looks decent" href="#"
-                           class="btn btn-primary btn-sm bottomtooltip">Format</a>
-                        <a id="csharpButton" data-toggle="tooltip"
-                           data-title="Convert Json to C# models" href="#" class="btn btn-primary btn-sm bottomtooltip">C#
+                    <div class="panel-heading">
+                        <div class="pull-right">
+                            <a id="formatButton" data-toggle="tooltip" data-title="Make your Json looks decent" href="#" class="btn btn-primary btn-sm bottomtooltip">Format</a>
+                            <a id="csharpButton" data-toggle="tooltip" data-title="Convert Json to C# models" href="#" class="btn btn-primary btn-sm bottomtooltip">C#
                             Classes</a>
-                    </div>
-                    <h4>&nbsp;</h4>
-                </div>
-                <div class="panel-body">
-                    <textarea rows="10" cols="10" id="jsonData" placeholder="Enter your json here... "
-                              class="textArea"></textarea>
-                    <input type="text" id="csharpclassresult" style="left: -1000px;position: absolute">
-                </div>
-                <div class="panel-footer" id="jsonPanelFooter">
-                    <div class="pull-right" id="downloadJsonContainer"></div>
-                    <h4>&nbsp;</h4>
-                </div>
-
-            </div>
-            <h6>Output:</h6>
-
-            <div class="panel panel-primary" id="resultContainer">
-                <div class="panel-body">
-                    <textarea id="result" rows="10" cols="10" class="textArea"></textarea>
-                </div>
-            </div>
-        </div>
-
-        <div id="menu2" class="tab-pane fade">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="pull-right">
-                        <input type="file" id="colorImage" data-toggle="tooltip"
-                               data-title="Find color pallate for the image"
-                               class="btn btn-primary btn-sm bottomtooltip"/>
-                    </div>
-                    <h4>Generate Colour Palette from Image</h4>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="col-md-2 col-sm-4" id="outputPanel">
                         </div>
-                        <div class="col-md-10 col-sm-8">
-                            <img id="uploadedImage" class="img-rounded" src="img/blank.png" width="400" height="300"/>
-                        </div>
+                        <h4>&nbsp;</h4>
+                    </div>
+                    <div class="panel-body">
+                        <textarea rows="10" cols="10" id="jsonData" placeholder="Enter your json here... " class="textArea"></textarea>
+                        <input type="text" id="csharpclassresult" style="left: -1000px;position: absolute">
+                    </div>
+                    <div class="panel-footer" id="jsonPanelFooter">
+                        <div class="pull-right" id="downloadJsonContainer"></div>
+                        <h4>&nbsp;</h4>
+                    </div>
+
+                </div>
+                <h6>Output:</h6>
+
+                <div class="panel panel-primary" id="resultContainer">
+                    <div class="panel-body">
+                        <textarea id="result" rows="10" cols="10" class="textArea"></textarea>
                     </div>
                 </div>
             </div>
-        </div>
 
-        <div id="menu3" class="tab-pane fade">
-            <div class="panel panel-default">
-                <div class="panel-heading">
-                    <div class="pull-right">
-
+            <div id="menu2" class="tab-pane fade">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="pull-right">
+                            <input type="file" id="colorImage" data-toggle="tooltip" data-title="Find color pallate for the image" class="btn btn-primary btn-sm bottomtooltip"
+                            />
+                        </div>
+                        <h4>Generate Colour Palette from Image</h4>
                     </div>
-                    <h4>OTHERS</h4>
-                </div>
-                <div class="panel-body">
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <a id="completeShotButton" data-toggle="tooltip" style="display: block; width: 100%;"
-                               data-title="Take the whole screen shot, top to bottom."
-                               class="btn btn-primary btn-sm bottomtooltip" href="#">Capture Screen Shot</a></div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <div class="icon-addon addon-lg">
-                                <label for="bigurlView" rel="tooltip" title="URL">Tiny Your URL</label>
-                                <input type="text" placeholder="Reduce your url size" class="form-control"
-                                       id="bigurlView">
-                                <small class="text-muted">Press enter key to submit.</small>
-
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="col-md-2 col-sm-4" id="outputPanel">
                             </div>
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="form-group col-md-12">
-                            <div class="icon-addon addon-lg">
-                                <label for="searchTextView" rel="tooltip" title="email"></label>
-                                <input type="text" placeholder="Search on Stackoverflow" class="form-control"
-                                       id="searchTextView">
-                                <small class="text-muted">&nbsp;&nbsp;Press enter key to submit.</small>
-
+                            <div class="col-md-10 col-sm-8">
+                                <img id="uploadedImage" class="img-rounded" src="img/blank.png" width="400" height="300" />
                             </div>
                         </div>
                     </div>
                 </div>
+            </div>
 
+            <div id="menu3" class="tab-pane fade">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <div class="pull-right">
+
+                        </div>
+                        <h4>OTHERS</h4>
+                    </div>
+                    <div class="panel-body">
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <a id="completeShotButton" data-toggle="tooltip" style="display: block; width: 100%;" data-title="Take the whole screen shot, top to bottom."
+                                    class="btn btn-primary btn-sm bottomtooltip" href="#">Capture Screen Shot</a></div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <div class="icon-addon addon-lg">
+                                    <label for="bigurlView" rel="tooltip" title="URL">Tiny Your URL</label>
+                                    <input type="text" placeholder="Reduce your url size" class="form-control" id="bigurlView">
+                                    <small class="text-muted">Press enter key to submit.</small>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-md-12">
+                                <div class="icon-addon addon-lg">
+                                    <label for="searchTextView" rel="tooltip" title="email">Search</label>
+                                    <input type="text" placeholder="Search on Stackoverflow" class="form-control" id="searchTextView">
+                                    <small class="text-muted">Press enter key to submit.</small>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="form-group col-sm-12">
+                                <div class="icon-addon addon-lg">
+                                    <label for="guidTextView" rel="tooltip" title="UUID">UUID (GUID) Generator</label>
+                                    <div class="input-group">
+                                        <input type="text" class="form-control" placeholder="Hit & Generate UUID" id="guidTextView">
+                                        <span class="input-group-btn">
+                                            <button class="btn btn-default" type="button" id="generateGUIDBtn">Generate</button>
+                                        </span>
+                                    </div>
+                                    <small class="text-muted">Use these UUIDs at your own risk! No guarantee of their uniqueness is given or implied :-) </small>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
             </div>
         </div>
     </div>
-</div>
 </body>
+
 </html>
